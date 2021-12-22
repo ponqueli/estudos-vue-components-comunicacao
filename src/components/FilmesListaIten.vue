@@ -1,28 +1,24 @@
 <template>
-    <ul class='list-group'>
-        <li class="list-group-item d-flex flex-row align-items-center">
-            <span class='me-auto'>{{ filmeTituloConcatenado }} - {{ ano }}</span>
-            <button type="button" class="btn btn-secondary float-right disabled ">Selecionar</button>
-        </li>
-    </ul>
+    <li class="list-group-item d-flex flex-row align-items-center">
+        <span class='me-auto'>{{ filme.titulo }} - {{ filme.ano }}</span>
+        <button @click="selecionar" type="button" class="text-white btn btn-secondary">Selecionar</button>
+    </li>
 </template>
 <script>
+
+import { eventBus } from './../main'
+
 export default {
     props: {
-        titulo: {
-            type: String,
+        filme:{
+            type: Object,
             required: true
-            
-        },
-        ano:{
-            type: Number,
-            required: true
-        }
-       
+        }  
     },
-    computed:{
-        filmeTituloConcatenado(){
-            return `Título: ${this.titulo}` 
+    methods: {
+        selecionar(){
+            //this.$emit('selecionarFilme', this.filme)
+            eventBus.selecionarFilme(this.filme)
         }
     }
 }
