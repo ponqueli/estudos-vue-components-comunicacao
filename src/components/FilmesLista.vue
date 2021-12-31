@@ -12,6 +12,9 @@
               @selecionarFilme="filmeSelecionado = $event"> 
             </FilmesListaIten>
           </ul>
+          <div class="alert alert-success" v-show="mostrarAlerta">
+            O Filme foi salvo com sucesso!
+          </div>
     </div>
 
     <!-- coluna 2 -->
@@ -50,7 +53,8 @@ export default {
         { id: 3, titulo:'Pantera Negra', ano: 2021, diretor: 'Stan Lee' }
       ],
       filmeSelecionado: undefined,
-      editar: false
+      editar: false,
+      mostrarAlerta: false
     }
   },
   methods: {
@@ -62,12 +66,21 @@ export default {
     editarFilme(filme){
       this.editar = true
       this.filmeSelecionado = filme
+    },
+    atualizarFilme(filmeAtualizado){
+      const indice = this.filmes.findIndex(filme => filme.id === filmeAtualizado.id )
+      this.filmes.splice(indice, 1, filmeAtualizado);
+      this.mostrarAlerta = true;
+      this.filmeSelecionado = undefined;
+      this.editar = false;
+      setTimeout(() => this.mostrarAlerta = false, 2000);
     }
   },
   created(){
     eventBus.$on('selecionarFilme', (filmeSelecionado)=>{
         this.filmeSelecionado = filmeSelecionado
     })
+    eventBus.$on('atualizarFilme',this.atualizarFilme)
   }
 }
 </script>

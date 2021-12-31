@@ -1,6 +1,6 @@
 <template>
     <li class="list-group-item d-flex flex-row align-items-center">
-        <span class='me-auto'>{{ filme.titulo }} - {{ filme.ano }}</span>
+        <span class='me-auto'>{{ filme.titulo }} - {{ filme.ano }} - {{ filme.diretor }}</span>
         <button @click="selecionar" type="button" class="text-white btn btn-secondary">Selecionar</button>
     </li>
 </template>
